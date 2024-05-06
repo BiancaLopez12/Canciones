@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista de Cantantes</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{url_for('static', filename='style.css')}}"
+    />
+  </head>
+  <body>
+    <h1>Actores</h1>
+    <ul>
+      {% for actor in actores %}
+      <li>{{ actor ['first_name'] }} {{ actor['last_name'] }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
