@@ -1,0 +1,15 @@
+h1 {
+  font-weight: bold;
+  color: blue;
+}
+
+body {
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+}

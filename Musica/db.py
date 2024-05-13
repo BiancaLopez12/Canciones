@@ -4,7 +4,7 @@ import sqlite3
 import click
 from flask import current_app, g
 
-db_folder = current_app.instance.path
+db_folder = current_app.instance_path
 db_name = 'spotify.sqlite'
 db_file = os.path.join(db_folder, db_name)
 db_sql_file = 'discos.sql'
@@ -48,15 +48,3 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
-
-@app.route('/autor')
-def actores():
-    base_de_datos = db.get_db()
-    consulta = """
-            SELECT las_name, first FROM actor 
-       """
-    
-    
-    resultado = base_de_datos.execute(consulta)
-    lista_de_resultados = resultado.fetchall()
-    return render_template("actores.html", actores=lista_de_resultados)
