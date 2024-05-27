@@ -12,5 +12,5 @@ def hello():
     return 'Hello, World!'
 
 from . import bp 
-app.registrer_blueprint(cantantes.bp)
+app.registrer_blueprint(cantante.bp)
 

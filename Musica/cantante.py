@@ -1,37 +1,41 @@
-from flask import Flask, render_template
-from . import bp
+from flask import Blueprint, app, render_template
+
+from spotify import db
 
 
-bp = Blueprint('cantante',__name__, url_prefix='/cantantes')
+bp = Blueprint('cantante',__name__,url_prefix='/cantante') 
 
-@bp.route('/cantantes')
-def cantantes():
+@bp.route('/')
+def lista():
+    base_de_datos = db.get_db()
     consulta = """
-    SELECT first_name, last_name, artistsId FROM cantante
-    ORDER BY last_name, first_name;
+         SELECT Name, ArtistId FROM artists
+         ORDER BY Name ASC
     """
     con = db.get_db()
     res = con.execute(consulta)
-    lista_cantantes = res.fetchall()
-    pagina = render_template('cantantes.html', cantantes=lista_cantantes)
-    return pagina
+    lista_de_cantantes = res.fetchall()
+    pagina = render_template('cantantes.html', cantantes=lista_de_cantantes)
 
-@bp.route('/<init:id>')
+    return render_template("cantantes.html", cantantes=lista_de_cantantes) 
+
+@bp.route('/<int:id>')
 def detalle(id):
     con = db.get_db()
     consulta1 = """
-        SELECT first_name, last_name FROM cantante WHERE artistsId =?;
-    """
+            SELECT name, ArtistId FROM artists WHERE ArtistId = ?
+"""
     consulta2 = """
-     SELECT title FROM cantante c JOIN 
-    """
+    SELECT al.Title FROM artists a JOIN albums al ON a.ArtistId = al.ArtistId
+    WHERE a.ArtistId = ?;
+"""
 
-    res = con.execute(consulta1, (id,))
+    res = con.execute(consulta1,(id,))
     cantante = res.fetchone()
     res = con.execute(consulta2, (id,))
-    lista_canciones = res.fetchall()
+    lista_de_albums = res.fetchall()
 
-    pagina = render_template('detalle_cantantes.html',
+    pagina = render_template('detalle_cantante.html',
                              cantante=cantante,
-                             canciones=lista_canciones)
+                             albums = lista_de_albums)
     return pagina
