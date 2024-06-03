@@ -1,6 +1,6 @@
 from flask import Blueprint, app, render_template
 
-from spotify import db
+from . import db
 
 
 bp = Blueprint('cantante',__name__,url_prefix='/cantante') 

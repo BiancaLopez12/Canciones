@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -11,6 +11,7 @@ with app.app_context():
 def hello():
     return 'Hello, World!'
 
-from . import bp 
-app.registrer_blueprint(cantante.bp)
 
+
+from . import cantante
+app.register_blueprint(cantante.bp)
