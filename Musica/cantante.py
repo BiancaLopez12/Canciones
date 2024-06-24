@@ -17,18 +17,18 @@ def lista():
     lista_de_cantantes = res.fetchall()
     pagina = render_template('cantantes.html', cantantes=lista_de_cantantes)
 
-    return render_template("cantantes.html", cantantes=lista_de_cantantes) 
+    return pagina 
 
 @bp.route('/<int:id>')
 def detalle(id):
     con = db.get_db()
     consulta1 = """
             SELECT name, ArtistId FROM artists WHERE ArtistId = ?
-"""
+        """
     consulta2 = """
-    SELECT al.Title FROM artists a JOIN albums al ON a.ArtistId = al.ArtistId
+    SELECT al.Title, a.ArtistId FROM artists a JOIN albums al ON a.ArtistId = al.ArtistId
     WHERE a.ArtistId = ?;
-"""
+    """
 
     res = con.execute(consulta1,(id,))
     cantante = res.fetchone()
@@ -36,6 +36,6 @@ def detalle(id):
     lista_de_albums = res.fetchall()
 
     pagina = render_template('detalle_cantante.html',
-                             cantante=cantante,
+                             artista =cantante,
                              albums = lista_de_albums)
     return pagina
