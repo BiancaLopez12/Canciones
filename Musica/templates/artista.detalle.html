@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{%block title %}Nuevo Cantante{% endblock %}
+{%$ block header %} Nuevo Cantante{% endblock %}
+{% block block% }
+       <form method="POST">
+            <label for="firts_name">Nombre</label>
+            <input type="text" name="firts_name" id="firts_name">
+            <br/>
+            <label for="last_name">Apellido</label>
+            <input type="text" name="last_name" id="firts_name">
+            <br/>
+            <input type="submit" value="Guardar">
+
+       </form>
+
+{% endblock %}
